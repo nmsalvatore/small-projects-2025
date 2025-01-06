@@ -8,7 +8,6 @@ class Workout(StrEnum):
     SHORT_WALK = "Go on a short walk"
     LONG_WALK = "Go on a long walk"
     GYM = "Go to the gym"
-    DEFAULT = "Run for the hills because time is a flat circle"
 
 
 def get_wod(weekday: int) -> str:
@@ -19,7 +18,16 @@ def get_wod(weekday: int) -> str:
 
     Returns:
         str: The workout for the given day
+
+    Raises:
+        ValueError: if weekday is not an integer between 0 and 6
     """
+
+    if not isinstance(weekday, int):
+        raise ValueError("weekday must be an integer")
+
+    if weekday < 0 or weekday > 6:
+        raise ValueError("weekday must be an integer between 0 and 6")
 
     match weekday:
         case 0 | 1 | 2 | 3:
@@ -28,8 +36,6 @@ def get_wod(weekday: int) -> str:
             return Workout.LONG_WALK
         case 4 | 6:
             return Workout.GYM
-        case _:
-            return Workout.DEFAULT
 
 
 if __name__ == "__main__":
