@@ -22,7 +22,25 @@ def get_access_token():
 
     if response.ok:
         access_token = response.json()["access_token"]
-        print(access_token)
+        return access_token
 
 
-get_access_token()
+def get_album_details(id):
+    """Fetch album details from Spotify API"""
+
+    response = requests.get(
+        f"https://api.spotify.com/v1/albums/{id}",
+        headers={"Authorization": f"Bearer {get_access_token()}"}
+    )
+
+    body = response.json()
+
+    print({
+        "artist_name": body["artists"][0]["name"],
+        "title": body["name"],
+        "release_date": body["release_date"],
+        "img_src": body["images"][1]["url"]
+    })
+
+
+get_album_details("71On7h3S7yH5D0Td6YNw1t")
