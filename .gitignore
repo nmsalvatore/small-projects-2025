@@ -3,5 +3,6 @@ venv
 .venv
 .env
 pseudo.md
+test_dir
 
 __pycache__
