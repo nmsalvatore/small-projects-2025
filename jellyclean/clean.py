@@ -1,7 +1,8 @@
 import os
 import re
-from pathlib import Path
 import sys
+
+from pathlib import Path
 
 import ffmpeg
 
@@ -19,6 +20,6 @@ for dir in os.listdir():
                 match = re.search(r"\b\d{4}\b", cleaned)
 
                 if match:
-                    cutoff_index = match.span(0)[1]
+                    cutoff = match.span(0)[1]
                     release_year = match.group(0)
-                    print(cleaned[:cutoff_index])
+                    print(cleaned[:cutoff])
