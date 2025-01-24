@@ -1,25 +1,43 @@
 import os
-import re
-import sys
-
 from pathlib import Path
+from shutil import rmtree
 
-import ffmpeg
+from formatting import validate, reformat
 
 
-os.chdir("test_dir")
+if __name__ == "__main__":
+    os.chdir("test_dir")
 
-for dir in os.listdir():
-    if os.path.isdir(dir):
-        release_year = None
+    for entry in os.listdir():
+        if os.path.isdir(entry):
+            for subentry in os.listdir(entry):
+                if subentry.endswith((".mkv", ".mp4")):
+                    valid_dirname = validate(entry)
+                    if not valid_dirname:
+                        new_dirname = reformat(entry)
+                        valid_new_dirname = validate(new_dirname)
+                        if not valid_new_dirname:
+                            raise ValueError(
+                                f"Could not validate directory name after reformatting: {entry} -> {new_dirname}"
+                            )
+                        # TODO: save changes
 
-        for file in os.listdir(dir):
-            if file.endswith((".mkv", ".mp4")):
-                cleaned = re.sub(r"\s", ".", dir)
-                cleaned = re.sub(r"[\(\)]", "", cleaned)
-                match = re.search(r"\b\d{4}\b", cleaned)
+                    valid_filename = validate(subentry)
+                    if not valid_filename:
+                        new_filename = reformat(subentry)
+                        valid_new_filename = validate(new_filename)
+                        if not valid_new_filename:
+                            raise ValueError(
+                                f"Could not validate file name after reformatting: {subentry} -> {new_filename}"
+                            )
+                        # TODO: save changes
 
-                if match:
-                    cutoff = match.span(0)[1]
-                    release_year = match.group(0)
-                    print(cleaned[:cutoff])
+                if os.path.isdir(Path(entry, subentry)) and subentry == "Subs":
+                    for subtitle in os.listdir(Path(entry, subentry)):
+                        if "eng" in subtitle.lower():
+                            os.rename(
+                                Path(entry, subentry, subtitle),
+                                Path(entry, subtitle)
+                            )
+
+                    rmtree(Path(entry, subentry))
