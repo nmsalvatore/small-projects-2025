@@ -8,7 +8,7 @@ def validate(entry) -> re.Match | None:
         Happy.Gilmore.1996
         Happy.Gilmore.1996.mkv
     """
-    return re.match(r"^(\w+\.)+\d{4}$", entry)
+    return re.match(r"^(\w+\.)+\d{4}(.mkv|.mp4)?$", entry)
 
 
 def reformat(original_name: str) -> str:
