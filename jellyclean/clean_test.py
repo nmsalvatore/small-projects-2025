@@ -19,9 +19,23 @@ def test_reformat(original, new):
     "The.Girl.Next.Door.2004",
     "2001.A.Space.Odyssey.1968",
     "1917.2019",
-    "Death.Race.2000.1975"
+    "Death.Race.2000.1975",
+
 ])
-def test_validate(title):
+def test_directory_validation(title):
+    match = validate(title)
+    assert match is not None
+    assert match.group() == title
+
+
+@pytest.mark.parametrize("title", [
+    "The.Girl.Next.Door.2004.mkv",
+    "2001.A.Space.Odyssey.1968.mp4",
+    "1917.2019.mp4",
+    "Death.Race.2000.1975.mkv",
+
+])
+def test_file_validation(title):
     match = validate(title)
     assert match is not None
     assert match.group() == title
