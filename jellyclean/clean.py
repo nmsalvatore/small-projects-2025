@@ -1,5 +1,4 @@
 import os
-import re
 from pathlib import Path
 from shutil import rmtree
 
@@ -9,11 +8,11 @@ from formatting import validate, reformat
 def clean_entry_name(entry: str) -> str:
     """Check if file or directory name is valid and reformat if not"""
 
-    valid: re.Match | None = validate(entry)
+    valid: bool = validate(entry)
 
     if not valid:
         new_name: str = reformat(entry)
-        valid_new_name: re.Match | None = validate(new_name)
+        valid_new_name: bool = validate(new_name)
 
         if not valid_new_name:
             raise ValueError(
