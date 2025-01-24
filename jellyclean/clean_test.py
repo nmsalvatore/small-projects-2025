@@ -1,6 +1,6 @@
 import pytest
 
-from formatting import validate, reformat
+from formatting import valid, reformat
 
 
 @pytest.mark.parametrize("original, new", [
@@ -22,7 +22,7 @@ def test_reformat(original, new):
     "Death.Race.2000.1975",
 ])
 def test_valid_directories(title):
-    assert validate(title)
+    assert valid(title)
 
 
 @pytest.mark.parametrize("title", [
@@ -32,7 +32,7 @@ def test_valid_directories(title):
     "Death.Race.2000.1975.mkv",
 ])
 def test_valid_files(title):
-    assert validate(title)
+    assert valid(title)
 
 
 @pytest.mark.parametrize("title", [
@@ -42,7 +42,7 @@ def test_valid_files(title):
     "Death.Race.2000.1975.",
 ])
 def test_invalid_directories(title):
-    assert not validate(title)
+    assert not valid(title)
 
 
 @pytest.mark.parametrize("title", [
@@ -52,4 +52,4 @@ def test_invalid_directories(title):
     "Death.Race.2000.19756.mkv",
 ])
 def test_invalid_files(title):
-    assert not validate(title)
+    assert not valid(title)

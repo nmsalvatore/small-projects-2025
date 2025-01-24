@@ -2,22 +2,18 @@ import os
 from pathlib import Path
 from shutil import rmtree
 
-from formatting import validate, reformat
+from formatting import valid, reformat
 
 
 def clean_entry_name(entry: str) -> str:
     """Check if file or directory name is valid and reformat if not"""
 
-    valid: bool = validate(entry)
-
-    if not valid:
+    if not valid(entry):
         new_name: str = reformat(entry)
-        valid_new_name: bool = validate(new_name)
 
-        if not valid_new_name:
-            raise ValueError(
-                f"Could not validate entry name after reformatting: {entry} -> {new_name}"
-            )
+        if not valid(new_name):
+            error_message = "Could not validate entry name after reformat"
+            raise ValueError(f"{error_message}:\n{entry} -> {new_name}")
 
         return new_name
 
