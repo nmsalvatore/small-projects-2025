@@ -1,14 +1,14 @@
 import re
 
 
-def validate(entry) -> re.Match | None:
+def validate(entry) -> bool:
     """Validate file or directory name to match dot-separated movie title and release year
 
     Example:
         Happy.Gilmore.1996
         Happy.Gilmore.1996.mkv
     """
-    return re.match(r"^(\w+\.)+\d{4}(.mkv|.mp4)?$", entry)
+    return re.match(r"^(\w+\.)+\d{4}(.mkv|.mp4)?$", entry) is not None
 
 
 def reformat(original_name: str) -> str:
