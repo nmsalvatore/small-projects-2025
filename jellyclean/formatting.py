@@ -1,7 +1,22 @@
 import re
 
 
-def valid(entry) -> bool:
+def clean(og_name: str) -> str:
+    """Check if file or directory name is valid and reformat if not"""
+
+    if not valid(og_name):
+        new_name: str = reformat(og_name)
+
+        if not valid(new_name):
+            error_message = "Could not validate entry name after reformat"
+            raise ValueError(f"{error_message}:\n{og_name} -> {new_name}")
+
+        return new_name
+
+    return og_name
+
+
+def valid(entry: str) -> bool:
     """Check if file or directory name is in valid format
 
     Example:
