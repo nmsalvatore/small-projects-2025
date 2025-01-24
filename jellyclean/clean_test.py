@@ -20,12 +20,9 @@ def test_reformat(original, new):
     "2001.A.Space.Odyssey.1968",
     "1917.2019",
     "Death.Race.2000.1975",
-
 ])
-def test_directory_validation(title):
-    match = validate(title)
-    assert match is not None
-    assert match.group() == title
+def test_valid_directories(title):
+    assert validate(title)
 
 
 @pytest.mark.parametrize("title", [
@@ -33,9 +30,26 @@ def test_directory_validation(title):
     "2001.A.Space.Odyssey.1968.mp4",
     "1917.2019.mp4",
     "Death.Race.2000.1975.mkv",
-
 ])
-def test_file_validation(title):
-    match = validate(title)
-    assert match is not None
-    assert match.group() == title
+def test_valid_files(title):
+    assert validate(title)
+
+
+@pytest.mark.parametrize("title", [
+    "The.Girl.Next.Door.2004.1080p.BluRay",
+    "2001.A.Space.Odyssey (1968)",
+    "Wonka (2023) [1080p] [WEBRip]",
+    "Death.Race.2000.1975.",
+])
+def test_invalid_directories(title):
+    assert not validate(title)
+
+
+@pytest.mark.parametrize("title", [
+    "The.Girl.Next.Door.2004.1080p.BluRay.mkv",
+    "2001.A.Space.Odyssey (1968).mp4",
+    "Wonka (2023) [1080p] [WEBRip].mkv",
+    "Death.Race.2000.19756.mkv",
+])
+def test_invalid_files(title):
+    assert not validate(title)
