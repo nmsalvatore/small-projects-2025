@@ -12,6 +12,8 @@ logging.basicConfig(format="%(message)s", level=logging.DEBUG)
 
 
 def process_directory(directory: Path) -> None:
+    """Perform cleanup on contents of provided directory"""
+
     for entry in map(lambda e: Path(directory, e), os.listdir(directory)):
         subtitle_count: int = 1
 
