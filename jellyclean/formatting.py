@@ -1,8 +1,8 @@
 import re
 
 
-def validate(entry) -> bool:
-    """Validate file or directory name to match dot-separated movie title and release year
+def valid(entry) -> bool:
+    """Check if file or directory name is in valid format
 
     Example:
         Happy.Gilmore.1996
