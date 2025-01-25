@@ -1,4 +1,4 @@
-name: CI
+name: Jellyclean CI
 
 on:
     push:
