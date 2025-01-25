@@ -32,18 +32,11 @@ def process_directory(directory: Path) -> None:
 
             elif subentry.name.endswith(FileExtension.SRT):
                 subtitle_count = rename_subtitle(
-                    Path(entry),
-                    subentry.name,
-                    clean_dirname,
-                    subtitle_count
+                    Path(entry), subentry.name, clean_dirname, subtitle_count
                 )
 
             elif is_subtitle_directory(subentry):
-                extract_subtitles(
-                    subentry,
-                    subtitle_count,
-                    subtitle_name=clean_dirname
-                )
+                extract_subtitles(subentry, subtitle_count, subtitle_name=clean_dirname)
 
             elif os.path.isdir(subentry):
                 rmtree(subentry)
