@@ -2,6 +2,10 @@ name: CI
 
 on:
     push:
+        paths:
+            - "jellyclean/**"
+        branches:
+            - main
     pull_request:
         paths:
             - "jellyclean/**"
