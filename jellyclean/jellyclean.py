@@ -19,6 +19,7 @@ def process_directory(directory: Path) -> None:
 
         if not os.path.isdir(entry):
             # TODO: if just a movie file, reformat and create parent directory
+            # test
             continue
 
         logging.info(f"Performing cleanup on {entry}")
