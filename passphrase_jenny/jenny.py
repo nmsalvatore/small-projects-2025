@@ -5,6 +5,7 @@ import json
 import random
 import os
 import pathlib
+import textwrap
 
 import dotenv
 import pyperclip
@@ -15,11 +16,8 @@ dotenv.load_dotenv()
 
 class Passphrase:
     def __init__(self):
-        self._separator = os.getenv(
-            "CUSTOM_SEPARATOR",
-            self._choose_random_separator()
-        )
-        self.passphrase = self._generate_passphrase()
+        self._separator = os.getenv("CUSTOM_SEPARATOR", self._choose_random_separator())
+        self._passphrase = self._generate_passphrase()
 
     def _get_word_list(self) -> list:
         word_list_path = pathlib.Path(__file__).resolve().with_name("word_list.json")
@@ -49,7 +47,7 @@ class Passphrase:
         return f"{self._separator}".join(words_with_num)
 
     def __str__(self):
-        return self.passphrase
+        return self._passphrase
 
 
 if __name__ == "__main__":
@@ -59,4 +57,7 @@ if __name__ == "__main__":
     if pyperclip.paste() == str(passphrase):
         print("Password has been copied to clipboard!")
     else:
-        print("Password could not be copied to clipboard. Password is:", passphrase)
+        message = f"""\
+            Password could not be copied to clipboard.
+            Password is: {passphrase}"""
+        print(textwrap.dedent(message))
