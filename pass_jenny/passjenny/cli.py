@@ -23,7 +23,7 @@ class PassJennyArgumentParser:
         self.parser = ArgumentParser(
             prog="passjenny",
             description="""
-                Passjenny is an easy-to-use and customizable CLI passphrase
+                PassJenny is an easy-to-use and customizable CLI passphrase
                 generator.""",
             add_help=False,
             formatter_class=CustomHelpFormatter,
