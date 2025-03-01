@@ -35,7 +35,7 @@ class PassJennyArgumentParser:
             "-h", "--help", action=CustomHelpAction, help="Show this help menu and exit"
         )
         self.parser.add_argument(
-            "-s", "--separator", type=str, nargs="?", help="Set separator character(s)"
+            "-s", "--separator", type=str, help="Set separator character(s)"
         )
         self.parser.add_argument(
             "-w",
