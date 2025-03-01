@@ -28,12 +28,12 @@ You can build a standalone executable using PyInstaller:
 
 2. Build the executable:
    ```
-   pyinstaller --name passjenny --onefile --add-data "word_list.json:." main.py
+   pyinstaller --name passjenny --onefile --add-data "passjenny/word_list.json:passjenny" --name passjenny main.py
    ```
 
    Note: On Windows, use a semicolon instead of a colon:
    ```
-   pyinstaller --name passjenny --onefile --add-data "word_list.json;." main.py
+   pyinstaller --name passjenny --onefile --add-data "passjenny/word_list.json;passjenny" --name passjenny main.py
    ```
 
 3. Find the executable in the `dist` directory.
